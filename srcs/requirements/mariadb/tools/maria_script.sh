@@ -15,7 +15,9 @@ until mysqladmin ping --silent; do
 done
 echo "TESTTESTTEST1"
 # Apply root password if it has not been set already
-mysql -e "UPDATE mysql.user SET Password = ${MYSQL_ROOT_PASSWORD} WHERE User = 'root'; FLUSH PRIVILEGES;"
+ALTER USER 'root'@'localhost' IDENTIFIED BY "${MYSQL_ROOT_PASSWORD}";
+flush privileges;
+
 echo "TESTTESTTEST2"
 # Create the initial database and user
 
