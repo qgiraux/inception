@@ -1,68 +1,5 @@
-# version: '3.8'
+version: "3.8"
 
-
-services:
-  mariadb:
-    init: true
-    build:
-      context: ./requirements/mariadb
-      dockerfile: Dockerfile
-      args:
-        - MYSQL_DATABASE
-        - MYSQL_USER
-        - MYSQL_PASSWORD
-        - MYSQL_ROOT_PASSWORD
-    image: mariadb
-    container_name: mariadb
-    volumes:
-      - mariadb:/var/lib/mysql
-    env_file: .env
-    networks:
-      - inception
-    restart: on-failure
-
-  wordpress:
-    image: wordpress
-    container_name: wordpress
-    build:
-      context: ./requirements/wordpress
-      dockerfile: Dockerfile
-      args:
-        - MYSQL_DATABASE
-        - MYSQL_USER
-        - MYSQL_PASSWORD
-        - MYSQL_ROOT_PASSWORD
-    volumes:
-      - wordpress:/var/www/html/wordpress
-    networks:
-      - inception
-    restart: unless-stopped
-    env_file: .env
-    depends_on:
-      - mariadb   
-
-  nginx:
-    image: nginx
-    container_name: nginx
-    build:
-      context: ./requirements/nginx
-      dockerfile: Dockerfile	
-    volumes:
-      - wordpress:/var/www/html/wordpress
-    depends_on:
-      - wordpress
-    ports:
-      - "443:443"
-    networks:
-      - inception
-    restart: unless-stopped
-    env_file: .env
-    healthcheck:
-      test: 'curl -kfsSL https://localhost:443/status'
-      interval: 5s
-      timeout: 1s
-      retries: 10
-      start_period: 5s
 
 volumes:
   mariadb:
@@ -81,3 +18,64 @@ volumes:
 networks:
   inception:
     name: inception
+    driver: bridge
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:42
+    init: true
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+      args:
+        - MYSQL_DATABASE
+        - MYSQL_USER
+        - MYSQL_PASSWORD
+        - MYSQL_ROOT_PASSWORD
+    networks:
+      - inception
+    volumes:
+      - mariadb:/var/lib/mysql
+    restart: always
+
+  wordpress:
+      container_name: wordpress
+      image: wordpress:42
+      init: true
+      build:
+        context: ./requirements/wordpress
+        dockerfile: Dockerfile
+        args:
+          - MYSQL_DATABASE
+          - MYSQL_USER
+          - MYSQL_PASSWORD
+      networks:
+        - inception
+      volumes:
+        - wordpress:/var/www/html/wordpress
+      restart: always
+      depends_on:
+        - mariadb  
+
+  nginx:
+    container_name: nginx
+    image: nginx:42
+    init: true
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    networks:
+      - inception
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress:/var/www/html
+    restart: always
+    depends_on:
+      - mariadb
+      - wordpress
+
+
+
+
