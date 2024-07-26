@@ -30,5 +30,5 @@ COPY        ./tools/wpscript.sh /usr/local/bin/
 RUN         chmod 755 /usr/local/bin/wpscript.sh
 
 # Use the wrapper script as the entrypoint
-ENTRYPOINT ["/usr/local/bin/wpscript.sh"]
+ENTRYPOINT ["bash", "/usr/local/bin/wpscript.sh"]
 

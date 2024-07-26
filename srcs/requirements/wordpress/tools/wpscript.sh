@@ -1,13 +1,26 @@
 #!/bin/bash
-#set -eux
+sleep 10
+if [ ! -f /var/www/html/wp-config.php ]; then
+    
 
-while ! wp db check --allow-root --path=/var/www/html/; do
-    echo "Waiting for Database to be ready..."
-    sleep 1
-done
-wp plugin install redis-cache --activate --allow-root --path=/var/www/html/
-# wp redis enable --allow-root --path=/var/www/html/
-# Start php-fpm
+    wp config create	--allow-root \
+                        --dbname=$MYSQL_DATABASE \
+                        --dbuser=$MYSQL_USER \
+                        --dbpass=$MYSQL_PASSWORD \
+                        --dbhost=mariadb:3306 --path='/var/www/html' \
+                        --skip-check
+    
+    wp user create guest guest@smth.com --role=author --user_pass=$wp_user_pwd --allow-root
+fi
+
+wp core install		--allow-root \
+                    --url=qgiraux.42.fr \
+                    --title=qgiraux_inception \
+                    --admin_user=qgiraux \
+                    --admin_password=qgiraux1 \
+                    --admin_email=quentin.giraux@gmail.com \
+                    --path='/var/www/html'
+                    
 php-fpm -F
 
 
