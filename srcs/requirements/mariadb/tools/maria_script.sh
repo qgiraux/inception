@@ -8,8 +8,6 @@ mariadb -u root -e "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$
 mariadb -u root -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';"
 mariadb -u root -e "FLUSH PRIVILEGES;"
 
-# Import database dump
-mariadb -u root $MYSQL_DATABASE < /usr/local/bin/dump.sql
 
 # Set password for root user
 mariadb -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$MYSQL_ROOT_PASSWORD');"

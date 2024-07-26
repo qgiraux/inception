@@ -14,10 +14,9 @@ RUN			mkdir -p /var/lib/mysql /var/run/mysqld
 RUN			chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
 RUN			chmod 777 /var/run/mysqld
 
-# Copy the MariaDB configuration file and dump.sql file
+# Copy the MariaDB configuration file
 COPY        ./conf/mariadb.cnf /etc/mysql/mariadb.conf.d/
 RUN         chmod 644 /etc/mysql/mariadb.conf.d/mariadb.cnf
-COPY        ./conf/dump.sql /usr/local/bin/
 
 
 COPY        ./tools/maria_script.sh /usr/local/bin/

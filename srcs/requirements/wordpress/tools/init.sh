@@ -17,9 +17,23 @@ wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -
 chmod +x /usr/local/bin/wp
 
 # Configure WordPress
+
 mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 wp config set DB_NAME $MYSQL_DATABASE --allow-root --path=/var/www/html/
 wp config set DB_USER $MYSQL_USER --allow-root --path=/var/www/html/
 wp config set DB_PASSWORD $MYSQL_PASSWORD --allow-root --path=/var/www/html/
 wp config set DB_HOST mariadb --allow-root --path=/var/www/html/
+
+# wp config create	--allow-root \
+#                     --dbname=$MYSQL_DATABASE \
+#                     --dbuser=$MYSQL_USER \
+#                     --dbpass=$MYSQL_PASSWORD \
+#                     --dbhost=mariadb:3306 --path='/var/www/html'
+# wo core install		--allow-root \
+#                     --url=qgiraux.42.fr \
+#                     --title=qgiraux_inception \
+#                     --admin_user=$MYSQL_USER \
+#                     --admin_password=$MYSQL_PASSWORD \
+#                     --admin_email=quentin.giraux@gmail.com \
+#                     --path='/var/www/html'
 
