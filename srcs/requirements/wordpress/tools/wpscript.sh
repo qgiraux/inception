@@ -16,8 +16,8 @@ fi
 wp core install		--allow-root \
                     --url=qgiraux.42.fr \
                     --title=qgiraux_inception \
-                    --admin_user=qgiraux \
-                    --admin_password=qgiraux1 \
+                    --admin_user=$WP_USER \
+                    --admin_password=$WP_PASSWORD \
                     --admin_email=quentin.giraux@gmail.com \
                     --path='/var/www/html'
                     
