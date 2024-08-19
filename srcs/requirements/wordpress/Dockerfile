@@ -3,8 +3,6 @@ FROM debian:bullseye
 ARG         MYSQL_DATABASE
 ARG         MYSQL_USER
 ARG         MYSQL_PASSWORD
-ARG         WP_USER
-ARG         WP_PASSWORD
 
 # Update and install necessary packages
 RUN apt-get update -y && apt-get upgrade -y

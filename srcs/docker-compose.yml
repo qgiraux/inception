@@ -7,13 +7,13 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/qgiraux/data/mariadb'
+      device: '/home/quentin/data/mariadb'
   wordpress:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/qgiraux/data/wordpress'
+      device: '/home/quentin/data/wordpress'
 
 networks:
   inception:
