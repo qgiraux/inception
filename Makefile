@@ -6,7 +6,7 @@ USER			= qgiraux
 SYSTEM_USER		= $(shell echo $$USER)
 
 SRC_DIR			= ./srcs
-VOL_DIR			= /home/quentin/data
+VOL_DIR			= /home/qgiraux/data
 
 WP_NAME			= wordpress
 MDB_NAME		= mariadb
@@ -47,9 +47,9 @@ down:
 clean:		down
 			@echo "${YELLOW}-----Removing Docker Volumes-----${NC}"
 			docker volume rm ${WP_NAME}
-			sudo rm -rf /home/quentin/data/${WP_NAME}
+			sudo rm -rf /home/qgiraux/data/${WP_NAME}
 			docker volume rm ${MDB_NAME}
-			sudo rm -rf /home/quentin/data/${MDB_NAME}
+			sudo rm -rf /home/qgiraux/data/${MDB_NAME}
 			@echo "${RED}-----Volumes Removed-----${NC}"
 			@echo "${YELLOW}-----Removing domain name from hosts file-----${NC}"
 			sudo sed -i '/127\.0\.0\.1\t${USER}\.42\.fr/d' /etc/hosts

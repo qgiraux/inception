@@ -10,7 +10,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
                         --dbhost=mariadb:3306 --path='/var/www/html' \
                         --skip-check
     
-    wp user create guest guest@smth.com --role=author --user_pass=$wp_user_pwd --allow-root
+    wp user create guest guest@smth.com --role=author --user_pass=$WP_PASSWORD --allow-root
 fi
 
 wp core install		--allow-root \

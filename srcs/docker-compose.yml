@@ -33,6 +33,8 @@ services:
         - MYSQL_USER
         - MYSQL_PASSWORD
         - MYSQL_ROOT_PASSWORD
+        - WP_USER
+        - WP_PASSWORD
     networks:
       - inception
     volumes:
