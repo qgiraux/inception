@@ -35,6 +35,8 @@ services:
         - MYSQL_ROOT_PASSWORD
         - WP_USER
         - WP_PASSWORD
+    env_file:
+        - .env
     networks:
       - inception
     volumes:
@@ -52,6 +54,8 @@ services:
           - MYSQL_DATABASE
           - MYSQL_USER
           - MYSQL_PASSWORD
+      env_file:
+        - .env
       networks:
         - inception
       volumes:
